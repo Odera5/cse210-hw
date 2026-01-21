@@ -1,16 +1,16 @@
 public class Resume
 {
-    public string _name;
-   public List<Job> _jobs = new List<Job>();
+    public string _personName;
+    public List<Job> _jobList = new List<Job>();
 
-   public void Display()
+    public void DisplayResume()
     {
-        Console.WriteLine($"Name: {_name}");
+        Console.WriteLine($"Name: {_personName}");
         Console.WriteLine("Jobs:");
-
-        for (int i = 0; i < _jobs.Count; i++)
+        foreach (Job job in _jobList)
         {
-            _jobs[i].Display(); // call Job's Display
+            job.DisplayJobDetails();
         }
+
     }
 }

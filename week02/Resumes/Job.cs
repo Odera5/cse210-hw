@@ -1,16 +1,12 @@
-using System.Reflection.Metadata.Ecma335;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-
 public class Job
 {
-    public string _company;
-    public string _jobTitle;
-    public int _startYear;
-    public int _endYear;
+  public  string _company;
+   public string _jobTitle;
+   public int _startYear;
+   public int _endYear;
 
-    public void Display()
+   public void DisplayJobDetails()
     {
-        Console.WriteLine($"{_jobTitle} ({_company}) {_startYear}-{_endYear}");
+        Console.WriteLine($"{_jobTitle} ({_company}) {_startYear} - {_endYear}");
     }
 }
