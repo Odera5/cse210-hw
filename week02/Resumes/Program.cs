@@ -23,7 +23,6 @@ class Program
         jobResume._jobList.Add(job1);
         jobResume._jobList.Add(job2);
         Console.Write("What is your name? ");
-        // string name = Console.ReadLine();
         jobResume._personName = Console.ReadLine();
         jobResume.DisplayResume();
        
