@@ -1,3 +1,10 @@
+// Exceeding requirements:
+// - The program only hides words that are not already hidden,
+//   ensuring that new words are hidden on each iteration.
+// - This provides a smoother and more effective memorization experience.
+
+
+
 using System;
 
 class Program

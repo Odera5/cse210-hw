@@ -1,85 +1,104 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
+using System.Security.Cryptography.X509Certificates;
+using System.Xml.Serialization;
 
 public class Journal
 {
-    private List<Entry> _entries = new List<Entry>();
-
-    private List<string> _prompts = new List<string>
+    List<string> _menu = new List<string>()
     {
-        "Who was the most interesting person I interacted with today?",
-        "What was the best part of my day?",
-        "How did I see the hand of the Lord in my life today?",
-        "What was the strongest emotion I felt today?",
-        "If I had one thing I could do over today, what would it be?"
+        "Adding an entry","Displaying all the entries","Saving to a file","Loading from a file", "Quit"
     };
 
-    public void AddEntry(Entry entry)
-    {
-        _entries.Add(entry);
-    }
+    PromptGenerator _entry = new PromptGenerator();
+     Entry _journalEnrty = new Entry();
+    int i;
+    int j = 0;
+    int z= 1;
+    int _choice;
+     string _takeEntry;
 
-    public void DisplayEntries()
+     string date = DateTime.Now.ToString("yyyy-MM-dd");
+
+
+    public void DisplayMenu()
     {
-        if (_entries.Count == 0)
+        do
         {
-            Console.WriteLine("No journal entries found.");
-            return;
+            i=0;
+        Console.WriteLine("Welcome to the journal program!");
+        Console.WriteLine("Please select one of the following choices:");
+
+        foreach(string menuItem in _menu)
+        {
+            i +=1;
+            Console.WriteLine($"{i}.{menuItem}");
         }
 
-        foreach (Entry entry in _entries)
-        {
-            entry.Display();
-            Console.WriteLine();
+        Console.WriteLine("What would you like to do? ");
+        int.TryParse(Console.ReadLine(), out _choice);
+
+
+        if(_choice == 1){
+
+        Console.WriteLine(_entry._prompt[j]);
+         _takeEntry = Console.ReadLine();
+         _journalEnrty._entryList.Add($"{_entry._prompt[j]} {_takeEntry}: Date:{date}");
+        j += 1;
+
         }
-    }
 
-    public string GetRandomPrompt()
-    {
-        Random random = new Random();
-        int index = random.Next(_prompts.Count);
-        return _prompts[index];
-    }
+        // Entry _journalEnrty = new Entry();
 
-    public void SaveToFile(string filename)
-    {
-        using (StreamWriter writer = new StreamWriter(filename))
-        {
-            foreach (Entry entry in _entries)
+         if(_choice == 2)
             {
-                writer.WriteLine(entry.ToFileString());
+                _journalEnrty.DisplayEntry(); 
+                _choice = 5;
             }
-        }
+            string filePath = "journal.txt";
 
-        Console.WriteLine("Journal saved successfully.");
+            if(_choice == 3)
+            {
+                
+
+                foreach(string file in _journalEnrty._entryList)
+                {
+                   File.AppendAllText(filePath, z+"."+ file + "\n");
+                     z += 1;
+                }
+                Console.WriteLine("File saved!");
+            }
+
+            if(_choice == 4)
+            {
+                
+
+                if (File.Exists(filePath)){
+                    string[] lines = File.ReadAllLines(filePath);
+                    foreach (string line in lines){
+                        Console.WriteLine(line);
+                        }
+                    }
+                else
+                {
+                    Console.WriteLine("File not found!");
+                }
+            }
+
+        
+        
+        } while(_choice != 5);
     }
 
-    public void LoadFromFile(string filename)
-    {
-        _entries.Clear();
+    // public Journal()
+    // {
+    //     AddEntry();
+    // }
 
-        if (!File.Exists(filename))
-        {
-            Console.WriteLine("File not found.");
-            return;
-        }
+    // Entry _journalEnrty = new Entry();
 
-        string[] lines = File.ReadAllLines(filename);
+    // public void AddEntry()
+    // {
+    //     _journalEnrty._entryList.Add(_takeEntry);
+    // }
 
-        foreach (string line in lines)
-        {
-            string[] parts = line.Split("|");
-
-            string date = parts[0];
-            string prompt = parts[1];
-            string response = parts[2];
-            int mood = int.Parse(parts[3]);
-
-            Entry entry = new Entry(date, prompt, response, mood);
-            _entries.Add(entry);
-        }
-
-        Console.WriteLine("Journal loaded successfully.");
-    }
+    
 }
