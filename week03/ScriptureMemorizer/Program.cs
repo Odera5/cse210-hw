@@ -11,32 +11,24 @@ class Program
 {
     static void Main(string[] args)
     {
-        Reference reference = new Reference("Proverbs", 3, 5, 6);
-        Scripture scripture = new Scripture(
-            reference,
-            "Trust in the Lord with all thine heart and lean not unto thine own understanding In all thy ways acknowledge him and he shall direct thy paths"
-        );
+        string value = "";
 
-        while (true)
-        {
-            Console.Clear();
-            scripture.Display();
+        do{
+       // Reference reference = new Reference();
+          Reference reference1 = new Reference("John",3,16);
+        //Reference reference2 = new Reference("Mathew",16,5,6);
+        Scripture scripture = new Scripture();
+        string script = scripture.DisplayScripture();
 
-            if (scripture.AllWordsHidden())
-            {
-                Console.WriteLine("\nAll words are hidden. Program ending.");
-                break;
-            }
 
-            Console.WriteLine("\nPress ENTER to continue or type 'quit' to exit:");
-            string input = Console.ReadLine();
+       //Console.WriteLine( reference.readReference());
+       Console.WriteLine( $"{reference1.readReference()} {script}");
+      // Console.WriteLine( reference2.readReference());
 
-            if (input.ToLower() == "quit")
-            {
-                break;
-            }
-
-            scripture.HideRandomWords();
-        }
+       Console.WriteLine("Press enter to continue or type 'quite' to finish:");
+       value = Console.ReadLine();
+        } while(value != "quite");
+        
+       
     }
 }
